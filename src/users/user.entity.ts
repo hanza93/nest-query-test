@@ -1,13 +1,32 @@
 import { AdvocateEntity } from '@app/advocate-base.entity';
 import { Exclude } from 'class-transformer';
 import { UserRole } from 'shared/enums/user-role.enum';
-import { BeforeUpdate, Column, Entity, Index } from 'typeorm';
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 
 const SALT_ROUNDS = 10;
 
+// don't extends AdvocateEntity because we don't want to track createdBy and updatedBy
 @Entity({ name: 'users' })
-export class UserEntity extends AdvocateEntity {
+export class UserEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @UpdateDateColumn({ nullable: true })
+  updatedAt!: Date;
+
   @Column({
     type: 'enum',
     enum: UserRole,
@@ -35,11 +54,13 @@ export class UserEntity extends AdvocateEntity {
   @Exclude()
   tempPassword: string;
 
+  @BeforeInsert()
   @BeforeUpdate()
   async UpdateFullName() {
     this.fullName = `${this.firstName} ${this.lastName}`;
   }
 
+  @BeforeInsert()
   @BeforeUpdate()
   async updatePassowrd() {
     if (this.tempPassword !== this.password) {
