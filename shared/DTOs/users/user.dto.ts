@@ -7,6 +7,11 @@ import {
   QueryOptions,
 } from '@ptc-org/nestjs-query-graphql';
 import { UserRole } from 'shared/enums/user-role.enum';
+import {
+  CreateDateColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @ObjectType('User')
 @KeySet(['id'])
@@ -14,7 +19,11 @@ import { UserRole } from 'shared/enums/user-role.enum';
   pagingStrategy: PagingStrategies.OFFSET,
   enableTotalCount: true,
 })
-export class UserDto extends AdvocateEntity {
+// don't extends AdvocateEntity because we don't want to track createdBy and updatedBy
+export class UserDto {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @FilterableField(() => UserRole)
   role: UserRole;
 
@@ -29,4 +38,10 @@ export class UserDto extends AdvocateEntity {
 
   @FilterableField()
   fullName: string;
+
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @UpdateDateColumn({ nullable: true })
+  updatedAt!: Date;
 }
