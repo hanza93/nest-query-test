@@ -8,15 +8,6 @@ const SALT_ROUNDS = 10;
 
 @Entity({ name: 'users' })
 export class UserEntity extends AdvocateEntity {
-  @Column({ nullable: true })
-  lastRequestIp: string;
-
-  @Column({ nullable: true })
-  passwordUpdatedAt: Date;
-
-  @Column({ nullable: true })
-  lastActiveAt: Date;
-
   @Column({
     type: 'enum',
     enum: UserRole,
