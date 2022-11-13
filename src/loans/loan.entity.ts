@@ -3,7 +3,7 @@ import { LoanStatus } from '@enums';
 import { BeforeUpdate, Column, Entity, Generated } from 'typeorm';
 
 @Entity({ name: 'loans' })
-export class loanEntity extends AdvocateEntity {
+export class LoanEntity extends AdvocateEntity {
   @Column()
   @Generated('increment')
   sequence: number;
