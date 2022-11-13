@@ -7,9 +7,10 @@ import {
   Matches,
 } from 'class-validator';
 import { UserRole } from 'shared/enums/user-role.enum';
+import { AdvocateBaseCreateDto } from '../advocate-base-create.dto';
 
 @InputType('CreateUserDto')
-export class CreateUserDto {
+export class CreateUserDto extends AdvocateBaseCreateDto {
   @IsEnum(UserRole)
   @Field(() => UserRole)
   role: UserRole;
