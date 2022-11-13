@@ -16,6 +16,15 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@app/*": ["src/*"],
+      "@users/*": ["src/users/*"],
+      "@auth/*": ["src/auth/*"],
+      "@DTOs": ["shared/DTOs/index"],
+      "@types": ["shared/types/index"],
+      "@errors": ["shared/errors/index"],
+      "@enums": ["shared/enums/index"]
+    }
   }
 }
